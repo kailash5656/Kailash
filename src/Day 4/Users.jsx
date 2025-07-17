@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import UserCard from './Day4/Components/UserCard';
+import UserCard from './Components/UserCard';
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -59,5 +59,3 @@ const Users = () => {
 };
 
 export default Users;
-
- 

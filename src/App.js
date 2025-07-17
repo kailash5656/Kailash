@@ -1,10 +1,10 @@
 import React from 'react';
-import EmojiPicker from './Day 4/EmojiPicker';
+import FocusInput from './Day 5/FocusInput';
 
 function App() {
   return (
     <div className="App">
-      <EmojiPicker />
+      <FocusInput />
     </div>
   );
 }
