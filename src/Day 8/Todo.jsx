@@ -7,7 +7,6 @@ function Todo() {
   const [error, setError] = useState("");
   const [newTodo, setNewTodo] = useState("");
 
-  // Load initial todos from dummyjson
   useEffect(() => {
     const fetchTodos = async () => {
       try {
@@ -24,7 +23,6 @@ function Todo() {
     fetchTodos();
   }, []);
 
-  // Add new todo (with your specified structure)
   const handleAdd = async () => {
     if (newTodo.trim() === "") return;
 
@@ -35,14 +33,14 @@ function Todo() {
     };
 
     try {
-      const response = await axios.post("https://dummyjson.com/todos/add",
+      const response = await axios.post(
+        "https://dummyjson.com/todos/add",
         newTask,
         {
           headers: { "Content-Type": "application/json" },
         }
       );
 
-      // Simulate adding to UI
       setTodos((prev) => [response.data, ...prev]);
       setNewTodo("");
     } catch (err) {
@@ -51,7 +49,6 @@ function Todo() {
     }
   };
 
-  // Delete todo
   const handleDelete = async (id) => {
     try {
       await axios.delete(`https://dummyjson.com/todos/${id}`);
@@ -62,14 +59,37 @@ function Todo() {
     }
   };
 
+  const handleToggleComplete = async (id, currentStatus) => {
+    try {
+      await axios.put(`https://dummyjson.com/todos/${id}`, {
+        completed: !currentStatus,
+      });
+
+      setTodos((prevTodos) =>
+        prevTodos.map((todo) =>
+          todo.id === id ? { ...todo, completed: !currentStatus } : todo
+        )
+      );
+    } catch (err) {
+      console.error("Error updating todo status:", err);
+      alert("Failed to update status.");
+    }
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial", maxWidth: "600px", margin: "0 auto" }}>
+    <div
+      style={{
+        padding: "20px",
+        fontFamily: "Arial",
+        maxWidth: "600px",
+        margin: "0 auto",
+      }}
+    >
       <h2 style={{ textAlign: "center" }}>📝 Todo App</h2>
 
-      {/* Input & Add Button */}
       <div style={{ display: "flex", marginBottom: "20px", gap: "10px" }}>
         <input
           type="text"
@@ -100,7 +120,6 @@ function Todo() {
         </button>
       </div>
 
-      {/* Todo List */}
       <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
         {todos.map((todo) => (
           <div
@@ -116,14 +135,21 @@ function Todo() {
               boxShadow: "2px 2px 6px rgba(0,0,0,0.1)",
             }}
           >
-            <span
-              style={{
-                textDecoration: todo.completed ? "line-through" : "none",
-                fontSize: "16px",
-              }}
-            >
-              {todo.todo}
-            </span>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <input
+                type="checkbox"
+                checked={todo.completed}
+                onChange={() => handleToggleComplete(todo.id, todo.completed)}
+              />
+              <span
+                style={{
+                  textDecoration: todo.completed ? "line-through" : "none",
+                  fontSize: "16px",
+                }}
+              >
+                {todo.todo}
+              </span>
+            </div>
             <button
               onClick={() => handleDelete(todo.id)}
               style={{

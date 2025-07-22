@@ -1,6 +1,5 @@
-
 import React, { useState } from "react";
-// import "../Styles/Navigation.css";
+import "../Styles/DayNavigation.css";
 import { Link } from "react-router-dom";
 
 const DayNavigation = () => {
@@ -11,24 +10,13 @@ const DayNavigation = () => {
 	};
 
 	const dayContents = {
-		"Day 1": [
-			"Background",
-		],
-		"Day 2": [
-			"Array",
-			"Calculator",
-      "Condition",
-      "Multiplication",
-      "Variable",
-		],
+		"Day 1": ["Background Changer",],
+		"Day 2": ["Array","Calculator","Condition","Multiplication","Variable",],
 		"Day 3": ["Grade","Merge", "Object", "Userlist"],
-		"Day 4": [ "Emoji Picker", "Users"],
-		"Day 5": [
-			"Focus Input",
-			"Lifting State",
-			"Login Form",
-		],
-		"Day 6": ["Home", "User Details", "View User"],
+		"Day 4": ["Emoji Picker", "Users",],
+		"Day 5": ["Focus Input","Lifting State","Login Form",],
+		"Day 6": ["Home", "View User"],
+		"Day 8": ["Todo"],
 	};
 
 	// Convert label to path-friendly string
